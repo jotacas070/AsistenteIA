@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import express from "express";
 import { createServer, type Server } from "http";
 import multer from "multer";
@@ -7,12 +7,20 @@ import { storage } from "./storage";
 import { insertConfigSchema, insertMessageSchema, insertFileSchema } from "@shared/schema";
 import { sendToFlowise } from "./lib/flowise";
 
+// Interface for file uploads
+interface UploadedFile extends Express.Multer.File {
+  filename: string;
+  originalname: string;
+  mimetype: string;
+  size: number;
+}
+
 const upload = multer({
   dest: 'uploads/',
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB limit
   },
-  fileFilter: (req, file, cb) => {
+  fileFilter: (req: any, file: any, cb: any) => {
     const allowedTypes = [
       'application/pdf',
       'application/msword',
@@ -143,11 +151,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       try {
         // Send to Flowise API
+        const attachments = Array.isArray(validation.data.attachments) 
+          ? validation.data.attachments 
+          : validation.data.attachments ? [validation.data.attachments] : [];
+          
         const aiResponse = await sendToFlowise(
           validation.data.content,
           config.apiUrl,
           config.apiKey,
-          validation.data.attachments || []
+          attachments
         );
 
         // Save AI response
@@ -197,13 +209,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Upload files
   app.post("/api/files", upload.array('files', 5), async (req, res) => {
     try {
-      if (!req.files || !Array.isArray(req.files)) {
+      const files = req.files as Express.Multer.File[];
+      if (!files || !Array.isArray(files)) {
         return res.status(400).json({ error: "No files uploaded" });
       }
 
       const uploadedFiles = [];
 
-      for (const file of req.files) {
+      for (const file of files) {
         const fileData = {
           filename: file.filename,
           originalName: file.originalname,
