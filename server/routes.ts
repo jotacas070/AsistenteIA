@@ -7,14 +7,6 @@ import { storage } from "./storage";
 import { insertConfigSchema, insertMessageSchema, insertFileSchema } from "@shared/schema";
 import { sendToFlowise } from "./lib/flowise";
 
-// Interface for file uploads
-interface UploadedFile extends Express.Multer.File {
-  filename: string;
-  originalname: string;
-  mimetype: string;
-  size: number;
-}
-
 const upload = multer({
   dest: 'uploads/',
   limits: {
@@ -207,9 +199,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Upload files
-  app.post("/api/files", upload.array('files', 5), async (req, res) => {
+  app.post("/api/files", upload.array('files', 5), async (req: any, res: any) => {
     try {
-      const files = req.files as Express.Multer.File[];
+      const files = req.files;
       if (!files || !Array.isArray(files)) {
         return res.status(400).json({ error: "No files uploaded" });
       }
