@@ -5,9 +5,9 @@ if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL environment variable is required');
 }
 
-// Configure postgres client for Supabase with proper SSL settings
+// Configure postgres client for database with proper SSL settings
 const client = postgres(process.env.DATABASE_URL, {
-  ssl: 'require',
+  ssl: process.env.NODE_ENV === 'production' ? 'require' : 'prefer',
   max: 1,
   prepare: false,
 });
