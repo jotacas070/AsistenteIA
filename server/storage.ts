@@ -35,11 +35,11 @@ export class DbStorage implements IStorage {
       subtitle: "Armada de Chile",
       primaryColor: "#1e3a8a",
       fontSize: "medium",
-      apiUrl: "https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315",
-      apiKey: "O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4",
+      apiUrl: process.env.FLOWISE_API_URL || "https://your-flowise-instance.com/api/v1/prediction/your-id",
+      apiKey: process.env.FLOWISE_API_KEY || "your-api-key-here",
       requireUserPassword: false,
       userPassword: null,
-      adminPassword: "admin123",
+      adminPassword: process.env.ADMIN_PASSWORD || "change-me-immediately",
       updatedAt: new Date(),
     };
     this.initializeConfig();
@@ -56,11 +56,11 @@ export class DbStorage implements IStorage {
           subtitle: "Armada de Chile",
           primaryColor: "#1e3a8a",
           fontSize: "medium",
-          apiUrl: "https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315",
-          apiKey: "O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4",
+          apiUrl: process.env.FLOWISE_API_URL || "https://your-flowise-instance.com/api/v1/prediction/your-id",
+          apiKey: process.env.FLOWISE_API_KEY || "your-api-key-here",
           requireUserPassword: false,
           userPassword: null,
-          adminPassword: "admin123",
+          adminPassword: process.env.ADMIN_PASSWORD || "change-me-immediately",
         });
       }
     } catch (error) {

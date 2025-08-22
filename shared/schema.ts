@@ -15,11 +15,11 @@ export const appConfig = pgTable("app_config", {
   subtitle: text("subtitle").notNull().default("Armada de Chile"),
   primaryColor: text("primary_color").notNull().default("#1e3a8a"),
   fontSize: text("font_size").notNull().default("medium"),
-  apiUrl: text("api_url").notNull().default("https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315"),
-  apiKey: text("api_key").notNull().default("O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4"),
+  apiUrl: text("api_url").notNull(),
+  apiKey: text("api_key").notNull(),
   requireUserPassword: boolean("require_user_password").notNull().default(false),
   userPassword: text("user_password"),
-  adminPassword: text("admin_password").notNull().default("admin123"),
+  adminPassword: text("admin_password").notNull(),
   updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
