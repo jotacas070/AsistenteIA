@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Settings, Anchor, Circle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "@/components/chat-interface";
-import { FileUpload } from "@/components/file-upload";
 import { AdminModal } from "@/components/admin-modal";
 import { UserAuthModal } from "@/components/user-auth-modal";
 import { useConfig } from "@/hooks/use-config";
@@ -78,10 +77,8 @@ export default function Home() {
             <ChatInterface />
           </div>
 
-          {/* File Upload and System Info */}
+          {/* System Info */}
           <div className="space-y-6">
-            <FileUpload />
-            
             {/* System Status */}
             <Card>
               <CardContent className="p-4">
