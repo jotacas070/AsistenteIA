@@ -49,6 +49,16 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertConfigSchema = createInsertSchema(appConfig).omit({
   id: true,
   updatedAt: true,
+}).partial().extend({
+  appTitle: z.string().optional(),
+  subtitle: z.string().optional(),
+  primaryColor: z.string().optional(),
+  fontSize: z.string().optional(),
+  apiUrl: z.string().optional(),
+  apiKey: z.string().optional(),
+  requireUserPassword: z.boolean().optional(),
+  userPassword: z.string().nullable().optional(),
+  adminPassword: z.string().optional(),
 });
 
 export const insertMessageSchema = createInsertSchema(chatMessages).omit({

@@ -91,13 +91,24 @@ export function ChatInterface() {
         attachedFiles.forEach(file => fileList.items.add(file));
         const uploadedFiles = await uploadMutation.mutateAsync(fileList.files);
         
-        // Convert to format expected by Flowise
-        attachments = uploadedFiles.map(file => ({
-          name: file.originalName,
-          type: file.mimeType,
-          data: file.storageUrl, // Using storage URL as data
-          mime: file.mimeType,
-        }));
+        // Convert files to base64 for Flowise API
+        const attachmentPromises = attachedFiles.map(async (file) => {
+          return new Promise<any>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const base64Data = reader.result as string;
+              resolve({
+                name: file.name,
+                type: file.type,
+                data: base64Data, // Send base64 data instead of URL
+                mime: file.type,
+              });
+            };
+            reader.readAsDataURL(file);
+          });
+        });
+        
+        attachments = await Promise.all(attachmentPromises);
 
         toast({
           title: "Archivos subidos",
