@@ -1,0 +1,593 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente IA - Compras Públicas Armada de Chile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- @COMPONENT: AdminAccessButton -->
+    <button id="adminAccessBtn" class="fixed top-4 right-4 z-50 bg-navy-800 text-white p-3 rounded-full shadow-lg hover:bg-navy-700 transition-colors duration-200" data-implementation="Should show admin login modal">
+        <i class="fas fa-cog text-lg"></i>
+    </button>
+    <!-- @END_COMPONENT: AdminAccessButton -->
+
+    <!-- @COMPONENT: Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40" data-customizable="true">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <!-- Chilean Navy emblem placeholder -->
+                    <div class="w-10 h-10 bg-navy-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-anchor text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-900" data-bind="config.appTitle">
+                            Asistente IA - Compras Públicas
+                        </h1>
+                        <p class="text-sm text-gray-500" data-bind="config.subtitle">
+                            Armada de Chile
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-circle text-green-500 mr-1"></i>
+                        En línea
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: MainApplication -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
+            
+            <!-- @COMPONENT: ChatInterface -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 flex flex-col">
+                <!-- Chat Header -->
+                <div class="p-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-robot text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">Asistente IA</h3>
+                                <p class="text-xs text-gray-500">Especializado en Compras Públicas</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600" data-implementation="Clear chat history">
+                            <i class="fas fa-trash text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4" id="messagesContainer">
+                    <!-- @COMPONENT: WelcomeMessage -->
+                    <div class="flex items-start space-x-3" data-mock="true">
+                        <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-xs"></i>
+                        </div>
+                        <div class="bg-gray-100 rounded-lg p-3 max-w-md">
+                            <p class="text-sm text-gray-800">
+                                ¡Hola! Soy tu asistente de IA especializado en compras públicas para la Armada de Chile. 
+                                Puedes hacerme preguntas sobre procesos de licitación, normativas, documentación requerida y más.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: WelcomeMessage -->
+
+                    <!-- @COMPONENT: SampleUserMessage -->
+                    <div class="flex items-start space-x-3 justify-end" data-mock="true">
+                        <div class="bg-navy-600 text-white rounded-lg p-3 max-w-md">
+                            <p class="text-sm">
+                                ¿Cuáles son los requisitos para participar en una licitación pública?
+                            </p>
+                            <p class="text-xs opacity-75 mt-1">14:30</p>
+                        </div>
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-user text-gray-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: SampleUserMessage -->
+
+                    <!-- @COMPONENT: SampleAIResponse -->
+                    <div class="flex items-start space-x-3" data-mock="true">
+                        <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-xs"></i>
+                        </div>
+                        <div class="bg-gray-100 rounded-lg p-3 max-w-md">
+                            <p class="text-sm text-gray-800">
+                                Para participar en licitaciones públicas, los proveedores deben cumplir con los siguientes requisitos básicos:
+                                <br><br>
+                                1. Estar inscrito en el Registro de Proveedores del Estado
+                                2. Tener RUT vigente y sin observaciones
+                                3. Presentar garantía de seriedad de la oferta
+                                4. Cumplir con especificaciones técnicas solicitadas
+                            </p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-500">14:31</span>
+                                <button class="text-xs text-navy-600 hover:text-navy-700" data-implementation="Copy message">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: SampleAIResponse -->
+                </div>
+
+                <!-- @COMPONENT: MessageInput -->
+                <div class="border-t border-gray-200 p-4">
+                    <div class="flex items-end space-x-3">
+                        <div class="flex-1">
+                            <div class="relative">
+                                <textarea
+                                    id="messageInput"
+                                    rows="1"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent resize-none"
+                                    placeholder="Escribe tu consulta aquí..."
+                                    data-implementation="Auto-expand textarea on content"
+                                ></textarea>
+                                <button class="absolute right-2 top-2 text-gray-400 hover:text-gray-600" data-implementation="Attach files">
+                                    <i class="fas fa-paperclip text-sm"></i>
+                                </button>
+                            </div>
+                            <!-- File attachment preview area -->
+                            <div id="filePreviewArea" class="mt-2 hidden">
+                                <!-- @COMPONENT: FilePreview -->
+                                <div class="flex items-center space-x-2 p-2 bg-gray-50 rounded border" data-mock="true">
+                                    <i class="fas fa-file-pdf text-red-500"></i>
+                                    <span class="text-sm text-gray-700">documento_licitacion.pdf</span>
+                                    <button class="text-gray-400 hover:text-red-500">
+                                        <i class="fas fa-times text-xs"></i>
+                                    </button>
+                                </div>
+                                <!-- @END_COMPONENT: FilePreview -->
+                            </div>
+                        </div>
+                        <button 
+                            class="bg-navy-600 text-white p-2 rounded-lg hover:bg-navy-700 transition-colors duration-200"
+                            data-event="click:sendMessage"
+                            data-implementation="Send message to Flowise API"
+                        >
+                            <i class="fas fa-paper-plane text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <div class="text-xs text-gray-500">
+                            Presiona Shift+Enter para nueva línea
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            API: <span class="text-green-600">Conectado</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: MessageInput -->
+            </div>
+            <!-- @END_COMPONENT: ChatInterface -->
+
+            <!-- @COMPONENT: FileUploadPanel -->
+            <div class="space-y-6">
+                <!-- File Upload Area -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="font-medium text-gray-900 mb-4">Subir Documentos</h3>
+                    
+                    <div 
+                        id="dropZone"
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-navy-400 transition-colors duration-200"
+                        data-implementation="File drop zone with drag events"
+                    >
+                        <i class="fas fa-cloud-upload-alt text-gray-400 text-2xl mb-2"></i>
+                        <p class="text-sm text-gray-600 mb-2">
+                            Arrastra archivos aquí o 
+                            <button class="text-navy-600 hover:text-navy-700 underline">selecciona archivos</button>
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            PDF, DOC, DOCX, JPG, PNG hasta 10MB
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="text-sm font-medium text-gray-900 mb-2">Archivos Recientes</h4>
+                        <div class="space-y-2">
+                            <!-- @MAP: recentFiles.map(file => ( -->
+                            <div class="flex items-center space-x-3 p-2 bg-gray-50 rounded" data-mock="true">
+                                <i class="fas fa-file-pdf text-red-500 text-sm"></i>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900">Bases_Licitacion_2024.pdf</p>
+                                    <p class="text-xs text-gray-500">Subido hace 2 horas • 2.5 MB</p>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500" data-implementation="Delete file">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                            <!-- @END_MAP )) -->
+
+                            <div class="flex items-center space-x-3 p-2 bg-gray-50 rounded" data-mock="true">
+                                <i class="fas fa-file-word text-blue-500 text-sm"></i>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900">Propuesta_Tecnica.docx</p>
+                                    <p class="text-xs text-gray-500">Subido ayer • 1.8 MB</p>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="font-medium text-gray-900 mb-4">Consultas Frecuentes</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left p-3 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100 transition-colors duration-200" data-implementation="Send predefined question">
+                            ¿Cómo participar en una licitación?
+                        </button>
+                        <button class="w-full text-left p-3 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100 transition-colors duration-200">
+                            Documentación requerida para proveedores
+                        </button>
+                        <button class="w-full text-left p-3 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100 transition-colors duration-200">
+                            Plazos de entrega y evaluación
+                        </button>
+                        <button class="w-full text-left p-3 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100 transition-colors duration-200">
+                            Normativas y reglamentos vigentes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="font-medium text-gray-900 mb-4">Estado del Sistema</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">API Flowise</span>
+                            <span class="flex items-center text-sm text-green-600">
+                                <i class="fas fa-circle text-xs mr-1"></i>
+                                Conectado
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Base de Datos</span>
+                            <span class="flex items-center text-sm text-green-600">
+                                <i class="fas fa-circle text-xs mr-1"></i>
+                                Operativo
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Almacenamiento</span>
+                            <span class="text-sm text-gray-600">78% usado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: FileUploadPanel -->
+        </div>
+    </div>
+    <!-- @END_COMPONENT: MainApplication -->
+
+    <!-- @COMPONENT: AdminModal -->
+    <div id="adminModal" class="fixed inset-0 z-50 hidden overflow-y-auto" data-implementation="Modal component with backdrop">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            
+            <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+                <!-- Admin Login Form -->
+                <div id="adminLogin" class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-navy-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-shield-alt text-navy-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Acceso Administrador
+                            </h3>
+                            <div class="mt-4">
+                                <input
+                                    type="password"
+                                    id="adminPassword"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-navy-500 focus:border-navy-500"
+                                    placeholder="Contraseña de administrador"
+                                    data-implementation="Admin authentication"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Panel (Initially Hidden) -->
+                <div id="adminPanel" class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 hidden">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Panel de Administración</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- App Customization -->
+                        <div class="border-b border-gray-200 pb-4">
+                            <h4 class="font-medium text-gray-900 mb-3">Personalización</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Título Principal</label>
+                                    <input type="text" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-sm" 
+                                           value="Asistente IA - Compras Públicas" data-bind="config.appTitle">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Subtítulo</label>
+                                    <input type="text" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-sm" 
+                                           value="Armada de Chile" data-bind="config.subtitle">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Color Principal</label>
+                                    <input type="color" class="mt-1 w-full h-10 border border-gray-300 rounded-md" 
+                                           value="#1e3a8a" data-bind="config.primaryColor">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Tamaño de Fuente</label>
+                                    <select class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-sm" data-bind="config.fontSize">
+                                        <option value="small">Pequeña</option>
+                                        <option value="medium" selected>Mediana</option>
+                                        <option value="large">Grande</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- API Configuration -->
+                        <div class="border-b border-gray-200 pb-4">
+                            <h4 class="font-medium text-gray-900 mb-3">Configuración API</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">URL de la API</label>
+                                    <input type="url" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-sm" 
+                                           value="https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315"
+                                           data-bind="config.apiUrl">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">API Key</label>
+                                    <div class="relative">
+                                        <input type="password" class="mt-1 w-full px-3 py-2 pr-10 border border-gray-300 rounded-md text-sm" 
+                                               value="O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4" data-bind="config.apiKey">
+                                        <button class="absolute inset-y-0 right-0 pr-3 flex items-center" data-implementation="Toggle password visibility">
+                                            <i class="fas fa-eye text-gray-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Settings -->
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Configuración de Seguridad</h4>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">Requerir Contraseña de Usuario</label>
+                                    <p class="text-xs text-gray-500">Los usuarios necesitarán contraseña para acceder</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" data-bind="config.requireUserPassword">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-navy-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-navy-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="adminSaveBtn" class="hidden w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-navy-600 text-base font-medium text-white hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500 sm:ml-3 sm:w-auto sm:text-sm"
+                            data-implementation="Save admin configuration to database">
+                        Guardar Cambios
+                    </button>
+                    <button type="button" id="adminLoginBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-navy-600 text-base font-medium text-white hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500 sm:ml-3 sm:w-auto sm:text-sm"
+                            data-implementation="Validate admin credentials">
+                        Iniciar Sesión
+                    </button>
+                    <button type="button" id="closeModalBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: AdminModal -->
+
+    <!-- @COMPONENT: UserAuthModal -->
+    <div id="userAuthModal" class="fixed inset-0 z-50 hidden overflow-y-auto" data-implementation="User authentication modal" data-condition="config.requireUserPassword">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            
+            <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-md sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-navy-100 mb-4">
+                            <i class="fas fa-anchor text-navy-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2">
+                            Acceso al Sistema
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-4">
+                            Ingresa la contraseña para acceder al Asistente IA
+                        </p>
+                        <input
+                            type="password"
+                            id="userPassword"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-navy-500 focus:border-navy-500"
+                            placeholder="Contraseña de acceso"
+                            data-implementation="User authentication"
+                        >
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="userLoginBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-navy-600 text-base font-medium text-white hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500 sm:w-auto sm:text-sm"
+                            data-implementation="Validate user credentials">
+                        Ingresar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: UserAuthModal -->
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        (function() {
+            // Modal functionality
+            const adminAccessBtn = document.getElementById('adminAccessBtn');
+            const adminModal = document.getElementById('adminModal');
+            const adminLogin = document.getElementById('adminLogin');
+            const adminPanel = document.getElementById('adminPanel');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminSaveBtn = document.getElementById('adminSaveBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const messageInput = document.getElementById('messageInput');
+            const messagesContainer = document.getElementById('messagesContainer');
+            const dropZone = document.getElementById('dropZone');
+
+            // Admin modal controls
+            adminAccessBtn.addEventListener('click', function() {
+                adminModal.classList.remove('hidden');
+            });
+
+            closeModalBtn.addEventListener('click', function() {
+                adminModal.classList.add('hidden');
+                adminLogin.classList.remove('hidden');
+                adminPanel.classList.add('hidden');
+                adminLoginBtn.classList.remove('hidden');
+                adminSaveBtn.classList.add('hidden');
+            });
+
+            adminLoginBtn.addEventListener('click', function() {
+                // TODO: Validate admin credentials against Supabase
+                const password = document.getElementById('adminPassword').value;
+                if (password === 'admin123') { // Mock validation
+                    adminLogin.classList.add('hidden');
+                    adminPanel.classList.remove('hidden');
+                    adminLoginBtn.classList.add('hidden');
+                    adminSaveBtn.classList.remove('hidden');
+                }
+            });
+
+            // Auto-expand textarea
+            messageInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+
+            // Message sending
+            messageInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (!message) return;
+
+                // Add user message to chat
+                addMessageToChat(message, 'user');
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+
+                // TODO: Send to Flowise API and handle response
+                // Simulate AI response
+                setTimeout(() => {
+                    addMessageToChat('Esta es una respuesta simulada del asistente IA. En la implementación real, esto vendría de la API de Flowise.', 'ai');
+                }, 1000);
+            }
+
+            function addMessageToChat(message, sender) {
+                const messageDiv = document.createElement('div');
+                const isUser = sender === 'user';
+                
+                messageDiv.className = `flex items-start space-x-3 ${isUser ? 'justify-end' : ''}`;
+                messageDiv.innerHTML = `
+                    ${isUser ? '' : `<div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>`}
+                    <div class="bg-${isUser ? 'navy-600 text-white' : 'gray-100'} rounded-lg p-3 max-w-md">
+                        <p class="text-sm ${isUser ? '' : 'text-gray-800'}">${message}</p>
+                        <p class="text-xs ${isUser ? 'opacity-75' : 'text-gray-500'} mt-1">${new Date().toLocaleTimeString('es-CL', {hour: '2-digit', minute: '2-digit'})}</p>
+                    </div>
+                    ${isUser ? `<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user text-gray-600 text-xs"></i>
+                    </div>` : ''}
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // File upload drag and drop
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('border-navy-400', 'bg-navy-50');
+            });
+
+            dropZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-navy-400', 'bg-navy-50');
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-navy-400', 'bg-navy-50');
+                
+                const files = e.dataTransfer.files;
+                handleFileUpload(files);
+            });
+
+            function handleFileUpload(files) {
+                // TODO: Implement file upload to Supabase storage
+                console.log('Files to upload:', files);
+                
+                Array.from(files).forEach(file => {
+                    if (file.size <= 10 * 1024 * 1024) { // 10MB limit
+                        console.log(`Uploading: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+                        // TODO: Upload to Supabase and update UI
+                    } else {
+                        alert(`Archivo ${file.name} es muy grande. Máximo 10MB.`);
+                    }
+                });
+            }
+
+            // Quick action buttons
+            document.querySelectorAll('[data-implementation="Send predefined question"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    messageInput.value = this.textContent;
+                    sendMessage();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

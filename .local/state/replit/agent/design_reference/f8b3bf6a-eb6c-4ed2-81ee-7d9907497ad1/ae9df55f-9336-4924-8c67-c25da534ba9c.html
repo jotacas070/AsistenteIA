@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente IA - Compras Públicas Armada de Chile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'navy': {
+                        50: '#eff6ff',
+                        500: '#3b82f6',
+                        700: '#1d4ed8',
+                        900: '#1e3a8a'
+                    }
+                },
+                fontFamily: {
+                    'inter': ['Inter', 'system-ui', 'sans-serif']
+                }
+            }
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="h-full font-inter bg-slate-50" data-mock="true">
+    <!-- @COMPONENT: AppLayout -->
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Title -->
+                <div class="flex items-center space-x-3">
+                    <!-- Chilean Navy emblem placeholder -->
+                    <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-anchor text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-navy-900" data-bind="config.appTitle">
+                            Asistente IA - Compras Públicas
+                        </h1>
+                        <p class="text-sm text-slate-500">Armada de Chile</p>
+                    </div>
+                </div>
+
+                <!-- Admin Access Button -->
+                <button 
+                    data-event="click:openAdminPanel" 
+                    class="p-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-navy-900 transition-colors"
+                    title="Acceso Administrador">
+                    <i class="fas fa-cog text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex h-[calc(100vh-4rem)]">
+        <!-- Chat Interface -->
+        <!-- @COMPONENT: ChatInterface -->
+        <main class="flex-1 flex flex-col">
+            <!-- Chat Messages Area -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4" id="chatMessages">
+                <!-- @STATE: messages:array = [] -->
+                
+                <!-- Welcome Message -->
+                <div class="flex justify-center mb-6">
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 max-w-2xl text-center">
+                        <div class="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-robot text-navy-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-navy-900 mb-2">¡Bienvenido al Asistente de IA!</h3>
+                        <p class="text-slate-600">Estoy aquí para ayudarte con consultas sobre compras públicas. Puedes preguntarme sobre procesos, normativas, documentación y más.</p>
+                    </div>
+                </div>
+
+                <!-- Sample AI Message -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 max-w-3xl" data-mock="true">
+                            <p class="text-slate-800">Hola, soy tu asistente especializado en compras públicas para la Armada de Chile. ¿En qué puedo ayudarte hoy?</p>
+                            <span class="text-xs text-slate-500 mt-2 block">10:30 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample User Message -->
+                <div class="flex items-start space-x-3 justify-end">
+                    <div class="flex-1 flex justify-end">
+                        <div class="bg-navy-600 rounded-lg shadow-sm p-4 max-w-3xl" data-mock="true">
+                            <p class="text-white">¿Cuáles son los pasos para iniciar un proceso de licitación pública?</p>
+                            <span class="text-xs text-navy-200 mt-2 block text-right">10:32 AM</span>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-8 h-8 bg-slate-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-white text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Sample AI Response -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 max-w-3xl" data-mock="true">
+                            <p class="text-slate-800">Para iniciar un proceso de licitación pública, debes seguir estos pasos principales:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-slate-700">
+                                <li>Definir las bases técnicas y administrativas</li>
+                                <li>Obtener la aprobación presupuestaria</li>
+                                <li>Publicar en ChileCompra</li>
+                                <li>Establecer el cronograma del proceso</li>
+                                <li>Revisar la documentación legal requerida</li>
+                            </ol>
+                            <p class="mt-2 text-slate-600">¿Te gustaría que profundice en alguno de estos pasos específicos?</p>
+                            <span class="text-xs text-slate-500 mt-2 block">10:33 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Input Area -->
+            <div class="border-t border-slate-200 bg-white p-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-end space-x-3">
+                        <div class="flex-1">
+                            <div class="relative">
+                                <textarea
+                                    data-bind="messageInput"
+                                    placeholder="Escribe tu consulta sobre compras públicas..."
+                                    class="w-full resize-none rounded-lg border border-slate-300 bg-white px-4 py-3 pr-12 text-slate-900 placeholder-slate-500 focus:border-navy-500 focus:ring-2 focus:ring-navy-500 focus:ring-offset-2 focus:outline-none"
+                                    rows="1"
+                                    data-implementation="Auto-resize based on content">
+                                </textarea>
+                                <button 
+                                    data-event="click:sendMessage"
+                                    class="absolute bottom-2 right-2 p-2 rounded-md bg-navy-600 text-white hover:bg-navy-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors"
+                                    data-implementation="Disable when input is empty or loading">
+                                    <i class="fas fa-paper-plane text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-center">
+                        Presiona Enter para enviar, Shift+Enter para nueva línea
+                    </p>
+                </div>
+            </div>
+        </main>
+        <!-- @END_COMPONENT: ChatInterface -->
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <!-- @COMPONENT: AdminPanel -->
+    <div id="adminModal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black bg-opacity-50" data-event="click:closeAdminPanel"></div>
+        
+        <!-- Modal -->
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-navy-900">Panel de Administración</h2>
+                    <button 
+                        data-event="click:closeAdminPanel"
+                        class="p-2 rounded-lg hover:bg-slate-100 text-slate-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Admin Login Form (shown when not authenticated) -->
+                <div id="adminLogin" class="p-6" data-state="showWhenNotAuthenticated">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">
+                                Contraseña de Administrador
+                            </label>
+                            <input 
+                                type="password"
+                                data-bind="adminPassword"
+                                class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                                placeholder="Ingresa la contraseña">
+                        </div>
+                        <button 
+                            data-event="click:authenticateAdmin"
+                            class="w-full bg-navy-600 text-white py-2 px-4 rounded-lg hover:bg-navy-700 transition-colors">
+                            Acceder
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Settings (shown when authenticated) -->
+                <div id="adminSettings" class="p-6 space-y-6 hidden" data-state="showWhenAuthenticated">
+                    
+                    <!-- API Configuration -->
+                    <section>
+                        <h3 class="text-lg font-semibold text-navy-900 mb-4">Configuración de API</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    URL de la API de Flowise
+                                </label>
+                                <input 
+                                    type="url"
+                                    data-bind="config.apiUrl"
+                                    value="https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315"
+                                    class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent text-sm"
+                                    data-mock="true">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    API Key
+                                </label>
+                                <div class="relative">
+                                    <input 
+                                        type="password"
+                                        data-bind="config.apiKey"
+                                        value="O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4"
+                                        class="w-full px-3 py-2 pr-10 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent text-sm"
+                                        data-mock="true">
+                                    <button class="absolute right-2 top-2 p-1 text-slate-500 hover:text-slate-700">
+                                        <i class="fas fa-eye text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- App Customization -->
+                    <section>
+                        <h3 class="text-lg font-semibold text-navy-900 mb-4">Personalización de la Aplicación</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Título de la Aplicación
+                                </label>
+                                <input 
+                                    type="text"
+                                    data-bind="config.appTitle"
+                                    value="Asistente IA - Compras Públicas"
+                                    class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                                    data-mock="true">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Color Primario
+                                    </label>
+                                    <div class="flex space-x-2">
+                                        <input 
+                                            type="color"
+                                            data-bind="config.primaryColor"
+                                            value="#1e3a8a"
+                                            class="w-12 h-10 rounded-lg border border-slate-300"
+                                            data-mock="true">
+                                        <input 
+                                            type="text"
+                                            data-bind="config.primaryColorHex"
+                                            value="#1e3a8a"
+                                            class="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent text-sm"
+                                            data-mock="true">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Color Secundario
+                                    </label>
+                                    <div class="flex space-x-2">
+                                        <input 
+                                            type="color"
+                                            data-bind="config.secondaryColor"
+                                            value="#3b82f6"
+                                            class="w-12 h-10 rounded-lg border border-slate-300"
+                                            data-mock="true">
+                                        <input 
+                                            type="text"
+                                            data-bind="config.secondaryColorHex"
+                                            value="#3b82f6"
+                                            class="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent text-sm"
+                                            data-mock="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Tamaño de Fuente
+                                </label>
+                                <select 
+                                    data-bind="config.fontSize"
+                                    class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent">
+                                    <option value="sm">Pequeño</option>
+                                    <option value="base" selected data-mock="true">Mediano</option>
+                                    <option value="lg">Grande</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Security Settings -->
+                    <section>
+                        <h3 class="text-lg font-semibold text-navy-900 mb-4">Configuración de Seguridad</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <input 
+                                    type="checkbox"
+                                    id="requirePassword"
+                                    data-bind="config.requireUserPassword"
+                                    class="w-4 h-4 text-navy-600 rounded border-slate-300 focus:ring-navy-500">
+                                <label for="requirePassword" class="text-sm font-medium text-slate-700">
+                                    Requerir contraseña para acceder a la aplicación
+                                </label>
+                            </div>
+                            
+                            <div id="userPasswordSection" class="ml-7 hidden">
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Contraseña de Usuario
+                                </label>
+                                <input 
+                                    type="password"
+                                    data-bind="config.userPassword"
+                                    class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                                    placeholder="Establece la contraseña para usuarios">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Cambiar Contraseña de Administrador
+                                </label>
+                                <input 
+                                    type="password"
+                                    data-bind="config.newAdminPassword"
+                                    class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                                    placeholder="Nueva contraseña (dejar vacío para mantener actual)">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-end space-x-3 pt-6 border-t border-slate-200">
+                        <button 
+                            data-event="click:resetToDefaults"
+                            class="px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors">
+                            Restablecer valores por defecto
+                        </button>
+                        <button 
+                            data-event="click:testApiConnection"
+                            class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
+                            Probar Conexión API
+                        </button>
+                        <button 
+                            data-event="click:saveSettings"
+                            class="px-4 py-2 bg-navy-600 text-white rounded-lg hover:bg-navy-700 transition-colors">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: AdminPanel -->
+
+    <!-- User Login Modal -->
+    <!-- @COMPONENT: UserLogin -->
+    <div id="userLoginModal" class="fixed inset-0 z-40 hidden" data-state="showWhenPasswordRequired">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lock text-navy-700 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-navy-900 mb-2">Acceso Requerido</h2>
+                    <p class="text-slate-600 mb-6">Ingresa la contraseña para acceder al asistente.</p>
+                    
+                    <div class="space-y-4">
+                        <input 
+                            type="password"
+                            data-bind="userLoginPassword"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                            placeholder="Contraseña">
+                        <button 
+                            data-event="click:authenticateUser"
+                            class="w-full bg-navy-600 text-white py-3 px-4 rounded-lg hover:bg-navy-700 transition-colors">
+                            Acceder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: UserLogin -->
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="fixed bottom-4 right-4 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-4 flex items-center space-x-3">
+            <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-navy-600"></div>
+            <span class="text-sm text-slate-600">El asistente está pensando...</span>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="fixed top-4 right-4 space-y-2 z-50">
+        <!-- Toast notifications will be dynamically added here -->
+    </div>
+
+    <script>
+        // TODO: Implement full application logic with Supabase integration
+        
+        (function() {
+            // Mock application state
+            let appState = {
+                isAdminAuthenticated: false,
+                isUserAuthenticated: false,
+                config: {
+                    apiUrl: 'https://flowiseai-railway-production-eb75.up.railway.app/api/v1/prediction/04648966-309e-4165-90ff-7c6c1ad83315',
+                    apiKey: 'O3KCVc2jLESbFDaplHU_PgaayV652Rz6WJjELk8jFD4',
+                    appTitle: 'Asistente IA - Compras Públicas',
+                    primaryColor: '#1e3a8a',
+                    secondaryColor: '#3b82f6',
+                    fontSize: 'base',
+                    requireUserPassword: false,
+                    userPassword: '',
+                    adminPassword: 'admin123'
+                },
+                messages: []
+            };
+
+            // Modal control functions
+            function openAdminPanel() {
+                document.getElementById('adminModal').classList.remove('hidden');
+            }
+
+            function closeAdminPanel() {
+                document.getElementById('adminModal').classList.add('hidden');
+                appState.isAdminAuthenticated = false;
+                document.getElementById('adminLogin').classList.remove('hidden');
+                document.getElementById('adminSettings').classList.add('hidden');
+            }
+
+            // Event listeners setup
+            document.addEventListener('DOMContentLoaded', function() {
+                // Admin panel toggle
+                document.querySelector('[data-event="click:openAdminPanel"]').addEventListener('click', openAdminPanel);
+                document.querySelector('[data-event="click:closeAdminPanel"]').addEventListener('click', closeAdminPanel);
+                
+                // Modal backdrop close
+                document.querySelector('[data-event="click:closeAdminPanel"]').addEventListener('click', closeAdminPanel);
+
+                // Admin authentication
+                document.querySelector('[data-event="click:authenticateAdmin"]').addEventListener('click', function() {
+                    const password = document.querySelector('[data-bind="adminPassword"]').value;
+                    if (password === appState.config.adminPassword) {
+                        appState.isAdminAuthenticated = true;
+                        document.getElementById('adminLogin').classList.add('hidden');
+                        document.getElementById('adminSettings').classList.remove('hidden');
+                        showToast('Acceso de administrador concedido', 'success');
+                    } else {
+                        showToast('Contraseña incorrecta', 'error');
+                    }
+                });
+
+                // Message sending
+                document.querySelector('[data-event="click:sendMessage"]').addEventListener('click', sendMessage);
+                document.querySelector('[data-bind="messageInput"]').addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+
+                // Password requirement toggle
+                document.getElementById('requirePassword').addEventListener('change', function() {
+                    const userPasswordSection = document.getElementById('userPasswordSection');
+                    if (this.checked) {
+                        userPasswordSection.classList.remove('hidden');
+                    } else {
+                        userPasswordSection.classList.add('hidden');
+                    }
+                });
+
+                // Initialize app based on config
+                initializeApp();
+            });
+
+            function sendMessage() {
+                const messageInput = document.querySelector('[data-bind="messageInput"]');
+                const message = messageInput.value.trim();
+                
+                if (!message) return;
+
+                // Add user message to chat
+                addMessageToChat(message, 'user');
+                messageInput.value = '';
+
+                // Show loading
+                document.getElementById('loadingSpinner').classList.remove('hidden');
+
+                // TODO: Send message to Flowise API
+                // Simulate API call
+                setTimeout(() => {
+                    document.getElementById('loadingSpinner').classList.add('hidden');
+                    addMessageToChat('Esta es una respuesta simulada del asistente de IA. En la implementación real, esta respuesta vendrá de la API de Flowise.', 'ai');
+                }, 2000);
+            }
+
+            function addMessageToChat(message, sender) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                const timestamp = new Date().toLocaleTimeString('es-CL', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+
+                if (sender === 'user') {
+                    messageElement.innerHTML = `
+                        <div class="flex items-start space-x-3 justify-end">
+                            <div class="flex-1 flex justify-end">
+                                <div class="bg-navy-600 rounded-lg shadow-sm p-4 max-w-3xl">
+                                    <p class="text-white">${message}</p>
+                                    <span class="text-xs text-navy-200 mt-2 block text-right">${timestamp}</span>
+                                </div>
+                            </div>
+                            <div class="flex-shrink-0 w-8 h-8 bg-slate-400 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageElement.innerHTML = `
+                        <div class="flex items-start space-x-3">
+                            <div class="flex-shrink-0 w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-robot text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 max-w-3xl">
+                                    <p class="text-slate-800">${message}</p>
+                                    <span class="text-xs text-slate-500 mt-2 block">${timestamp}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function showToast(message, type = 'info') {
+                const toastContainer = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                
+                const bgColor = type === 'success' ? 'bg-green-500' : 
+                               type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+                
+                toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 transform translate-x-full transition-transform duration-300`;
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}"></i>
+                    <span>${message}</span>
+                `;
+
+                toastContainer.appendChild(toast);
+
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-full');
+                }, 100);
+
+                // Animate out and remove
+                setTimeout(() => {
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        toastContainer.removeChild(toast);
+                    }, 300);
+                }, 3000);
+            }
+
+            function initializeApp() {
+                // TODO: Load config from Supabase
+                // TODO: Check if user password is required
+                // TODO: Apply saved customizations
+                
+                console.log('App initialized with mock data');
+                console.log('TODO: Implement Supabase integration for data persistence');
+                console.log('TODO: Implement actual Flowise API integration');
+                console.log('TODO: Implement proper authentication system');
+                console.log('TODO: Implement configuration persistence');
+            }
+
+            // Make functions globally accessible for testing
+            window.mockAppFunctions = {
+                openAdminPanel,
+                closeAdminPanel,
+                sendMessage,
+                addMessageToChat,
+                showToast
+            };
+        })();
+    </script>
+</body>
+</html>
