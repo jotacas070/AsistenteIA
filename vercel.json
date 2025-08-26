@@ -23,8 +23,16 @@
       "dest": "server/index.ts"
     },
     {
-      "src": "/(.*)",
+      "src": "/assets/(.*)",
+      "dest": "dist/public/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
       "dest": "dist/public/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "dist/public/index.html"
     }
   ],
   "functions": {
